@@ -13,10 +13,8 @@ cd ./nginx/certs
 openssl genrsa  -out server.key 4096
 openssl req -new -batch -key server.key -out server.csr
 openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
- 
-# docker-compose.yml
-cd
-wget -O docker-compose.yml https://gist.githubusercontent.com/masato/9834041c63570c90d3e1/raw/docker-compose.yml
- 
+
+cd -
+
 docker-compose up -d
 docker-compose ps

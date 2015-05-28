@@ -1,3 +1,5 @@
+nginx/certs/server.*
+
 # Logs
 logs
 *.log

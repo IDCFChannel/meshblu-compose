@@ -1,0 +1,34 @@
+meshblu:
+  restart: always
+  image: octoblu/meshblu:0c3e5bd
+  volumes:
+    - .:/var/www
+    - ./docker:/etc/supervisor/conf.d
+  environment:
+    - MQTT_PORT=1883
+    - MQTT_PASSWORD=skynetpass
+    - MONGODB_URI=mongodb://mongo:27017/skynet
+  ports:
+    - "1883:1883"
+  links:
+    - redis
+    - mongo
+openresty:
+  restart: always
+  image: tenstartups/openresty
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - ./nginx:/etc/nginx
+  links:
+    - redis
+    - meshblu
+  entrypoint: ["nginx", "-c", "/etc/nginx/nginx.conf"]
+redis:
+  restart: always
+  image: redis
+mongo:
+  restart: always
+  image: mongo
+

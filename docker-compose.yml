@@ -33,5 +33,10 @@ redis:
 mongo:
   restart: always
   image: mongo
+rediscli:
+  image: redis
+  links:
+    - redis
+
 
 

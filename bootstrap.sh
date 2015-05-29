@@ -16,5 +16,5 @@ openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
 
 cd -
 
-docker-compose up -d
+docker-compose up -d openresty
 docker-compose ps

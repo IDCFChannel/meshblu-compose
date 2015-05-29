@@ -28,8 +28,6 @@ openresty:
 redis:
   restart: always
   image: redis
-  ports:
-    - "6379:6379"
 mongo:
   restart: always
   image: mongo
@@ -37,6 +35,12 @@ rediscli:
   image: redis
   links:
     - redis
-
-
-
+iotutil:
+  build: ./iotutil
+  volumes:
+    - ./iotutil:/app
+  links:
+    - redis
+    - openresty
+  environment: 
+    - MESHBLU_URL=https://openresty/

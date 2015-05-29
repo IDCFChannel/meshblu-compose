@@ -1,0 +1,3 @@
+[submodule "iotutil"]
+	path = iotutil
+	url = git@github.com:masato/node-iot-util.git

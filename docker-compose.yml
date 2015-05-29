@@ -32,6 +32,8 @@ redis:
 mongo:
   restart: always
   image: mongo
+  volumes:
+    - ./mongo:/data/db/
 rediscli:
   image: redis
   links:

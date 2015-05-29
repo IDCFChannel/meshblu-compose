@@ -1,4 +1,5 @@
 nginx/certs/server.*
+mongo
 
 # Logs
 logs

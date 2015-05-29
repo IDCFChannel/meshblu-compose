@@ -5,6 +5,7 @@ meshblu:
     - .:/var/www
     - ./docker:/etc/supervisor/conf.d
   environment:
+    - DEBUG=meshblu:model:device,meshblu:register
     - MQTT_PORT=1883
     - MQTT_PASSWORD=skynetpass
     - MONGODB_URI=mongodb://mongo:27017/skynet

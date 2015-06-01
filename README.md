@@ -42,4 +42,4 @@ $ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
 
 ## Author
 
-[masato](https://github.com/masato)
+[Masato Shimizu](https://github.com/masato)

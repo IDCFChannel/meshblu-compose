@@ -29,11 +29,13 @@ openresty:
 redis:
   restart: always
   image: redis
+  volumes:
+    - ./redis:/data
 mongo:
   restart: always
   image: mongo
   volumes:
-    - ./mongo:/data/db/
+    - ./mongo:/data/db
 rediscli:
   image: redis
   links:

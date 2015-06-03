@@ -5,24 +5,29 @@ local function getUUID()
         return
     end
 
-    local m,err = ngx.re.match(ngx.var.uri,"(trigger-\\d)")
+    local m,err = ngx.re.match(ngx.var.uri,"(data|devices)/(trigger-\\d)")
 
     if not m then 
         ngx.say("not matched!")
         return
     end
 
-    local uuid_key = m[0]
-    local res, err = red:hmget(uuid_key,"uuid")
-    ngx.say(res)
+    ngx.log(ngx.STDERR, "@@ m1: " .. m[1])
+    ngx.log(ngx.STDERR, "@@ m2: " .. m[2])
 
-    if not res then
-        ngx.say("failed to get uuid: ", err)
-        return
-    end
+    local uuid_key = m[2]
+    local res, err = red:hmget(uuid_key,"uuid")
 
     red:close()
-    return
+
+    if not res then
+        ngx.exit(ngx.HTTP_FORBIDDEN) 
+    end
+
+
+    ngx.log(ngx.STDERR, "/" .. m[1] .. "/" .. unpack(res))
+    ngx.var.device_uri = "/" .. m[1] .. "/" .. unpack(res)
+
 end
 
 getUUID()

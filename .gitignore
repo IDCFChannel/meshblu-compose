@@ -1,4 +1,4 @@
-nginx/certs/server.*
+nginx/conf/certs/server.*
 mongo
 redis
 

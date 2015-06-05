@@ -2,7 +2,7 @@
 
 Bootstrap your [Meshblu](https://github.com/octoblu/meshblu/) IoT Platform with [Docker Compose](https://github.com/docker/compose). 
 
-## Instrallation
+## Installation
 
 A docker-compose.yml in this repo is tested on Ubuntu 14.04 only for now.
 

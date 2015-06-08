@@ -12,7 +12,7 @@ A docker-compose.yml in this repo is tested on Ubuntu 14.04 only for now.
 $ sudo apt-get update && sudo apt-get install -y git
 ```
 
-2. Git clone a repository and run bootstrap.sh
+2. Git clone this repository and run bootstrap.sh
 
 ```sh
 $ git clone https://github.com/masato/meshblu-compose

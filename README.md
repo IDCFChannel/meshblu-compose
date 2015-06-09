@@ -15,7 +15,7 @@ $ sudo apt-get update && sudo apt-get install -y git
 2. Git clone this repository and run bootstrap.sh
 
 ```sh
-$ git clone https://github.com/masato/meshblu-compose
+$ git clone --recursive https://github.com/masato/meshblu-compose
 $ cd meshblu-compose
 $ ./bootstrap.sh
 ```
@@ -34,6 +34,13 @@ penresty_1         inx/nginx.conf                        /tcp, 0.0.0.0:80
                                                          ->80/tcp
 meshblucompose_r   /entrypoint.sh     Up                 6379/tcp
 edis_1             redis-server
+```
+
+Ensure Meshblu server is running.
+
+```sh
+$ curl --insecure -L localhost/status
+{"meshblu":"online"}
 ```
 
 3. Registers

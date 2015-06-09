@@ -39,7 +39,14 @@ edis_1             redis-server
 Ensure Meshblu server is running.
 
 ```sh
-$ curl --insecure -L localhost/status
+$ curl localhost/status
+{"meshblu":"online"}
+```
+
+Using public IP address also.
+
+```sh
+$ curl http://xxx.xxx.xxx/status
 {"meshblu":"online"}
 ```
 

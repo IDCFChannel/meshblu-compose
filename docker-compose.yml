@@ -1,14 +1,17 @@
 meshblu:
   restart: always
-  image: octoblu/meshblu:0c3e5bd
+  build: ./meshblu
+#  image: octoblu/meshblu:0c3e5bd
   volumes:
-    - .:/var/www
+    - ./meshblu:/var/www
     - ./docker:/etc/supervisor/conf.d
   environment:
-    - DEBUG=meshblu:model:device,meshblu:register
+    - DEBUG=meshblu:model:device,meshblu:register,meshblu:mqtt
     - MQTT_PORT=1883
     - MQTT_PASSWORD=skynetpass
     - MONGODB_URI=mongodb://mongo:27017/skynet
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
   ports:
     - "1883:1883"
   links:

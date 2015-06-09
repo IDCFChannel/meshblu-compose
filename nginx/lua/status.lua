@@ -8,7 +8,6 @@ local function getStatus()
     local uuid_key = args.keyword .. ":" ..args.token
     local res, err = red:hmget(uuid_key,"uuid")
 
-    ngx.say(unpack(res))
     if not res then
         ngx.say("failed to get uuid: ", err)
         return

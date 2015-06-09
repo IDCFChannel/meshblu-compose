@@ -66,7 +66,7 @@ Removing meshblucompose_iotutil_run_1...
 A pair of token and uuid is for an upstream service.
 
 ```sh
-$ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
+$ curl --insecure "http://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
 {"uuid":"9e55cd50-05de-11e5-ad60-69b28a150c14"}
 ```
 

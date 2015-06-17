@@ -24,9 +24,8 @@ After installation you will some lines from docker-compose ps command on the dis
 
 ```sh
       Name             Command             State              Ports
--------------------------------------------------------------------------
 meshblucompose_m   npm start          Up                 0.0.0.0:1883->18
-eshblu_1                                                 83/tcp, 9000/tcp
+eshblu_1                                                 83/tcp, 80/tcp
 meshblucompose_m   /entrypoint.sh     Up                 27017/tcp
 ongo_1             mongod
 meshblucompose_o   nginx -c /etc/ng   Up                 0.0.0.0:443->443
@@ -39,14 +38,14 @@ edis_1             redis-server
 Ensure Meshblu server is running.
 
 ```sh
-$ curl localhost/status
+$ curl --insecure https://localhost/status
 {"meshblu":"online"}
 ```
 
 Using public IP address also.
 
 ```sh
-$ curl http://xxx.xxx.xxx/status
+$ curl --insecure https://xxx.xxx.xxx/status
 {"meshblu":"online"}
 ```
 

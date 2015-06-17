@@ -51,7 +51,10 @@ $ curl --insecure https://xxx.xxx.xxx/status
 
 3. Registers
 
+Registering pre-defined devices including one owner , five triggers and five actions. owner can send a message to all devices and a trigger can send a message to action which has same number suffix.
+
 ```sh
+$ docker-compose build iotutil
 $ docker-compose run --rm iotutil register
 > iotutil@0.0.1 start /app
 > node app.js "register"
@@ -60,16 +63,24 @@ devices registered successfully, owner is { meshblu_auth_uuid: '9e55cd50-05de-11
 Removing meshblucompose_iotutil_run_1...
 ```
 
-4. Get Owner UUID
+5. PUT whitelists
 
-A pair of token and uuid is for an upstream service.
+If you want to grant to trigger-5 sending message to action-1 run this command.
 
 ```sh
-$ curl --insecure "http://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
+$ docker-compose run --rm iotutil whiten -- -f trigger-5 -t action-1
+```
+
+6. Get Owner UUID
+
+A pair of token and uuid is for an upstream service use.
+
+```sh
+$ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
 {"uuid":"9e55cd50-05de-11e5-ad60-69b28a150c14"}
 ```
 
-5. Check your public IP address
+7. Check your public IP address
 
 Visit your cloud console page and check an assigned public IP address to your virtual machine. This IP address should be opened to other services which want to connect to your Meshblu brokers.
 

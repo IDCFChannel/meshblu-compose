@@ -68,7 +68,7 @@ Removing meshblucompose_iotutil_run_1...
 If you want to grant to trigger-5 sending message to action-1 run this command.
 
 ```sh
-$ docker-compose run --rm iotutil whiten -- -f trigger-5 -t action-1
+$ docker-compose run --rm iotutil whiten -- -f action-1 -t trigger-1
 ```
 
 6. Get Owner UUID

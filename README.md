@@ -84,6 +84,18 @@ $ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
 
 Visit your cloud console page and check an assigned public IP address to your virtual machine. This IP address should be opened to other services which want to connect to your Meshblu brokers.
 
+8. redis-cli
+
+```sh
+$ docker-compose run --rm  rediscli  sh -c 'exec redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
+```
+
+9. mongo
+
+```sh
+$ docker exec -it meshblucompose_mongo_1 mongo skynet
+```
+
 ## Licence
 
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)

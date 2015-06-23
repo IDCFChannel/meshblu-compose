@@ -87,7 +87,7 @@ Visit your cloud console page and check an assigned public IP address to your vi
 8. redis-cli
 
 ```sh
-$ docker-compose run --rm  rediscli  sh -c 'exec redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
+$ docker run -it --link meshblucompose_redis_1:redis --rm redis sh -c 'exec redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
 ```
 
 9. mongo

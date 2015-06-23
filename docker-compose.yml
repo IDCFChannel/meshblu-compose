@@ -40,10 +40,6 @@ mongo:
   image: mongo
   volumes:
     - ./mongo:/data/db
-rediscli:
-  image: redis
-  links:
-    - redis
 iotutil:
   build: ./iotutil
   volumes:

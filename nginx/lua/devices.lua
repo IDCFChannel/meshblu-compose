@@ -5,7 +5,7 @@ local function getUUID()
         return
     end
 
-    local m,err = ngx.re.match(ngx.var.uri,"(data|devices)/(trigger-\\d)")
+    local m,err = ngx.re.match(ngx.var.uri,"(data|devices)/((action|trigger)-\\d)")
 
     if not m then 
         ngx.say("not matched!")

@@ -55,5 +55,6 @@ iotutil:
   links:
     - redis
     - openresty
+#  entrypoint: ["npm","test"]
   environment: 
     - MESHBLU_URL=https://openresty/

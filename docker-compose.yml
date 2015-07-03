@@ -47,7 +47,7 @@ rediscli:
   image: redis
   links:
     - redis
-iotutil:
+iotutil: &cli
   build: ./iotutil
   volumes:
     - ./iotutil:/app
@@ -57,3 +57,8 @@ iotutil:
     - openresty
   environment: 
     - MESHBLU_URL=https://openresty/
+  command: npm start
+clitest:
+  <<: *cli
+  entrypoint: []
+  command: npm test

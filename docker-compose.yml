@@ -58,10 +58,11 @@ iotutil:
     - openresty
   environment: 
     - MESHBLU_URL=https://openresty/
+  entrypoint: ["npm", "start"]
 clitest:
   build: ./iotutil
   volumes:
     - ./iotutil:/app
     - /etc/localtime:/etc/localtime:ro
-  entrypoint: []
-  command: npm test
+  entrypoint: ["npm", "test"]
+

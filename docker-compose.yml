@@ -8,7 +8,7 @@ meshblu:
     - /etc/localtime:/etc/localtime:ro
   environment:
 #    - DEBUG=meshblu:model:device,meshblu:register,meshblu:mqtt,ascoltatori:redis
-    - DEBUG=meshblu:mqtt,ascoltatori:redis
+    - DEBUG=meshblu:mqtt,ascoltatori:redis,meshblu:sendMessage
     - MQTT_PORT=1883
     - MQTT_PASSWORD=skynetpass
     - MONGODB_URI=mongodb://mongo:27017/skynet

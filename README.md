@@ -97,7 +97,7 @@ $ docker-compose run --rm iotutil whiten -- -f action-1 -t trigger-3
 
 6. CLIを使ってデバイスのUUIDを取得する
 
-`listコ`コマンドを実行すると登録されているデバイス情報を取得できます。
+`list`コマンドを実行すると登録されているデバイス情報を取得できます。
 
 ```sh
 $ docker-compose run  --rm iotutil owner

@@ -44,6 +44,7 @@ mongo:
   image: mongo
   volumes:
     - ./mongo:/data/db
+    - /etc/localtime:/etc/localtime:ro
 rediscli:
   image: redis
   links:

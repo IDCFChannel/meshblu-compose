@@ -1,57 +1,63 @@
-# Meshblu Compose
+# Meshblu Docker Compose
 
-Bootstrap your [Meshblu](https://github.com/octoblu/meshblu/) IoT Platform with [Docker Compose](https://github.com/docker/compose). 
+[Meshblu](https://github.com/octoblu/meshblu/) IoT Platform を[Docker Compose](https://github.com/docker/compose)で構成管理するためのツールです。
 
-## Installation
 
-A docker-compose.yml in this repo is tested on Ubuntu 14.04 only for now.
+## インストール
 
-1. Make sure git is installed
+DockerホストはUbuntu 14.04を使います。DockerとDocker Composeのバージョンは以下でテストしています。
+
+* Docker: 1.7.0
+* Docker Compose: 1.3.1
+
+1. Dockerをインストールするサーバーにgitをインストールします。
 
 ```sh
 $ sudo apt-get update && sudo apt-get install -y git
 ```
 
-2. Git clone this repository and run bootstrap.sh
+2. このリポジトリをcloneしてbootstrap.shを実行します。
 
 ```sh
-$ git clone --recursive https://github.com/masato/meshblu-compose
+$ git clone --recursive https://github.com/IDCFChannel/meshblu-compose
 $ cd meshblu-compose
 $ ./bootstrap.sh
 ```
 
-After installation you will some lines from docker-compose ps command on the display.
+インストールが成功するとdocker-compose psコマンドの結果が表示されます。コンテナが4つ起動していることを確認してください。
 
 ```sh
-      Name             Command             State              Ports
-meshblucompose_m   npm start          Up                 0.0.0.0:1883->18
-eshblu_1                                                 83/tcp, 80/tcp
-meshblucompose_m   /entrypoint.sh     Up                 27017/tcp
-ongo_1             mongod
-meshblucompose_o   nginx -c /etc/ng   Up                 0.0.0.0:443->443
-penresty_1         inx/nginx.conf                        /tcp, 0.0.0.0:80
-                                                         ->80/tcp
-meshblucompose_r   /entrypoint.sh     Up                 6379/tcp
-edis_1             redis-server
+$ docker-compose ps
+        Name                 Command                 State                  Ports
+-----------------------------------------------------------------------------------------
+meshblucompose_meshb   npm start              Up                     0.0.0.0:1883->1883/t
+lu_1                                                                 cp, 80/tcp
+meshblucompose_mongo   /entrypoint.sh         Up                     27017/tcp
+_1                     mongod
+meshblucompose_openr   nginx -c /etc/nginx/   Up                     0.0.0.0:443->443/tcp
+esty_1                 nginx.conf                                    , 0.0.0.0:80->80/tcp
+meshblucompose_redis   /entrypoint.sh         Up                     6379/tcp
+_1                     redis-server
 ```
 
-Ensure Meshblu server is running.
+Mesubluサーバーのステータスを表示します。
 
 ```sh
 $ curl --insecure https://localhost/status
 {"meshblu":"online"}
 ```
 
-Using public IP address also.
+パブリックIPアドレスを使って外部のネットワークから接続する場合は、ファイアウォールの設定とプライベートIPアドレスへのポートフォワードを事前に行ってください。
+
 
 ```sh
 $ curl --insecure https://xxx.xxx.xxx/status
 {"meshblu":"online"}
 ```
 
-3. Registers
+3. デバイスの登録
 
-Registering pre-defined devices including one owner , five triggers and five actions. owner can send a message to all devices and a trigger can send a message to action which has same number suffix.
+すべてのデバイスにメッセージを送信できるマスターの`owner`デバイスと、action-*を5つ、trigger-*を5つコマンドで作成します。また末尾の番号が同じ組み合わせでaction-*からtrigger-*へもメッセージが送信できます。
 
 ```sh
 $ docker-compose build iotutil
@@ -59,42 +65,93 @@ $ docker-compose run --rm iotutil register
 > iotutil@0.0.1 start /app
 > node app.js "register"
 
-devices registered successfully, owner is { meshblu_auth_uuid: '9e55cd50-05de-11e5-ad60-69b28a150c14', meshblu_auth_token: 'b24f0ba5' }
-Removing meshblucompose_iotutil_run_1...
+┌─────────┬────────────────────┬──────────────────────────────────────┐
+│ keyword │ meshblu_auth_token │ meshblu_auth_uuid                    │
+├─────────┼────────────────────┼──────────────────────────────────────┤
+│ owner   │ 7552521b           │ 72006d15-40cc-47ab-b58e-b2a940038460 │
+└─────────┴────────────────────┴──────────────────────────────────────┘
 ```
 
-5. PUT whitelists
-
-If you want to grant to trigger-5 sending message to action-1 run this command.
+デバイスの登録が終了するとマスターownerの認証情報が表示されます。この情報は以下のコマンドを実行しても出力できます。
 
 ```sh
-$ docker-compose run --rm iotutil whiten -- -f action-1 -t trigger-1
+$ docker-compose run  --rm iotutil  owner
+
+> iotutil@0.0.1 start /app
+> node app.js "owner"
+
+┌─────────┬────────────────────┬──────────────────────────────────────┐
+│ keyword │ meshblu_auth_token │ meshblu_auth_uuid                    │
+├─────────┼────────────────────┼──────────────────────────────────────┤
+│ owner   │ 7552521b           │ 72006d15-40cc-47ab-b58e-b2a940038460 │
+└─────────┴────────────────────┴──────────────────────────────────────┘
 ```
 
-6. Get Owner UUID
+5. Whitelistを追加する
 
-A pair of token and uuid is for an upstream service use.
+任意のデバイス間のメッセージ送信を許可することができます。たとえばaction-1からtrigger-3へのメッセージ送信を許可します。
+
+```sh
+$ docker-compose run --rm iotutil whiten -- -f action-1 -t trigger-3
+```
+
+6. CLIを使ってデバイスのUUIDを取得する
+
+`listコ`コマンドを実行すると登録されているデバイス情報を取得できます。
+
+```sh
+$ docker-compose run  --rm iotutil owner
+
+> iotutil@0.0.1 start /app
+┌───────────┬──────────┬──────────────────────────────────────┐
+│ keyword   │ token    │ uuid                                 │
+├───────────┼──────────┼──────────────────────────────────────┤
+│ trigger-1 │ 43778029 │ 8d5c4f0a-1884-4fdf-82ea-3f0e61377523 │
+├───────────┼──────────┼──────────────────────────────────────┤
+│ trigger-2 │ 8ff4e865 │ d3a60222-17a8-4d8c-b09b-533aa7fbf339 │
+├───────────┼──────────┼──────────────────────────────────────┤
+│ trigger-3 │ 3ec4141f │ 48a37f58-2eda-4ef0-939d-6473ded77c5a │
+├───────────┼──────────┼──────────────────────────────────────┤
+...
+```
+
+`show`コマンドを実行すると個別のデバイスの情報を表示します。
+
+```sh
+$ docker-compose run --rm iotutil show -- --keyword action-3
+
+> iotutil@0.0.1 start /app
+> node app.js "show" "--keyword" "action-3"
+
+┌──────────┬──────────┬──────────────────────────────────────┐
+│ keyword  │ token    │ uuid                                 │
+├──────────┼──────────┼──────────────────────────────────────┤
+│ action-3 │ ac4d9e73 │ 6f75566e-9e69-4582-a718-cfb0939369c4 │
+└──────────┴──────────┴──────────────────────────────────────┘
+```
+
+7. APIを使ってデバイスのUUIDを取得する
+
+ownerデバイスの場合は、`/owner/uuid`、通常のデバイスは`/device/uuid`に対してクエリ文字列にキーワードとtokenを渡してHTTP GETします。
 
 ```sh
 $ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
-{"uuid":"9e55cd50-05de-11e5-ad60-69b28a150c14"}
+{"uuid":"72006d15-40cc-47ab-b58e-b2a940038460"}
 ```
 
-7. Check your public IP address
+8. デバイスの削除
 
-Visit your cloud console page and check an assigned public IP address to your virtual machine. This IP address should be opened to other services which want to connect to your Meshblu brokers.
-
-8. redis-cli
+`del`コマンドで登録してあるデバイスをすべて削除します。削除後は`regiser`コマンドを実行してデバイスを再作成します。
 
 ```sh
-$ docker run -it --link meshblucompose_redis_1:redis --rm redis sh -c 'exec redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
+$ docker-compose run --rm iotutil del
+
+> iotutil@0.0.1 start /app
+> node app.js "del"
+
+trigger-1, trigger-2, trigger-3, trigger-4, trigger-5, action-1, action-2, action-3, action-4, action-5, owner are deleted.
 ```
 
-9. mongo
-
-```sh
-$ docker exec -it meshblucompose_mongo_1 mongo skynet
-```
 
 ## Licence
 

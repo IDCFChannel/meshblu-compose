@@ -1,6 +1,6 @@
 [submodule "iotutil"]
 	path = iotutil
-	url = git@github.com:masato/node-iot-util.git
+	url = git@github.com:IDCFChannel/node-iot-util.git
 [submodule "meshblu"]
 	path = meshblu
 	url = https://github.com/octoblu/meshblu.git

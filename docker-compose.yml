@@ -66,4 +66,9 @@ clitest:
     - ./iotutil:/app
     - /etc/localtime:/etc/localtime:ro
   entrypoint: ["npm", "test"]
-
+freeboard:
+  build: ./freeboard
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+  ports:
+    - 8088:8080

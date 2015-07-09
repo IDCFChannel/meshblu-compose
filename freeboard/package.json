@@ -1,0 +1,12 @@
+{
+    "name": "freeboard-server",
+    "description": "freeboard-server",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+         "http-server": "^0.8.0"
+    },
+    "scripts": {
+        "start": "http-server"
+    }
+}

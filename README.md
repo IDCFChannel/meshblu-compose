@@ -10,13 +10,13 @@ DockerホストはUbuntu 14.04を使います。DockerとDocker Composeのバー
 * Docker: 1.7.0
 * Docker Compose: 1.3.1
 
-1. Dockerをインストールするサーバーにgitをインストールします。
+### Dockerをインストールするサーバーにgitをインストールします。
 
 ```sh
 $ sudo apt-get update && sudo apt-get install -y git
 ```
 
-2. このリポジトリをcloneしてbootstrap.shを実行します。
+### このリポジトリをcloneしてbootstrap.shを実行します。
 
 ```sh
 $ git clone --recursive https://github.com/IDCFChannel/meshblu-compose
@@ -55,9 +55,9 @@ $ curl --insecure https://xxx.xxx.xxx/status
 {"meshblu":"online"}
 ```
 
-3. デバイスの登録
+### デバイスの登録
 
-すべてのデバイスにメッセージを送信できるマスターの`owner`デバイスと、action-*を5つ、trigger-*を5つコマンドで作成します。また末尾の番号が同じ組み合わせでaction-*からtrigger-*へもメッセージが送信できます。
+すべてのデバイスにメッセージを送信できるマスターの`owner`デバイスと、action-*を5つ、trigger-*を5つコマンドで作成します。また末尾の番号が同じ組み合わせは、trigger-*からaction-*へもメッセージが送信できます(例: triggger-1からaction-1)。
 
 ```sh
 $ docker-compose build iotutil
@@ -87,7 +87,7 @@ $ docker-compose run  --rm iotutil  owner
 └─────────┴────────────────────┴──────────────────────────────────────┘
 ```
 
-5. Whitelistを追加する
+###  Whitelistを追加する
 
 任意のデバイス間のメッセージ送信を許可することができます。たとえばaction-1からtrigger-3へのメッセージ送信を許可します。
 
@@ -95,7 +95,7 @@ $ docker-compose run  --rm iotutil  owner
 $ docker-compose run --rm iotutil whiten -- -f action-1 -t trigger-3
 ```
 
-6. CLIを使ってデバイスのUUIDを取得する
+### CLIを使ってデバイスのUUIDを取得する
 
 `list`コマンドを実行すると登録されているデバイス情報を取得できます。
 
@@ -130,7 +130,7 @@ $ docker-compose run --rm iotutil show -- --keyword action-3
 └──────────┴──────────┴──────────────────────────────────────┘
 ```
 
-7. APIを使ってデバイスのUUIDを取得する
+### APIを使ってデバイスのUUIDを取得する
 
 ownerデバイスの場合は、`/owner/uuid`、通常のデバイスは`/device/uuid`に対してクエリ文字列にキーワードとtokenを渡してHTTP GETします。
 
@@ -139,7 +139,7 @@ $ curl --insecure "https://localhost/owner/uuid?token=b24f0ba5&keyword=owner"
 {"uuid":"72006d15-40cc-47ab-b58e-b2a940038460"}
 ```
 
-8. デバイスの削除
+### デバイスの削除
 
 `del`コマンドで登録してあるデバイスをすべて削除します。削除後は`regiser`コマンドを実行してデバイスを再作成します。
 

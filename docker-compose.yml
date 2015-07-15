@@ -8,9 +8,7 @@ meshblu:
     - /etc/localtime:/etc/localtime:ro
   environment:
 #    - DEBUG=meshblu:model:device,meshblu:register,meshblu:mqtt,ascoltatori:redis
-    - DEBUG=meshblu:mqtt,ascoltatori:redis,meshblu:sendMessage
-    - MQTT_PORT=1883
-    - MQTT_PASSWORD=skynetpass
+    - DEBUG=meshblu:mqtt,ascoltatori:redis,ascoltatori:mqtt,meshblu:sendMessage,meshblu:doMessageForward,meshblu:message-io-socket-handler
     - MONGODB_URI=mongodb://mongo:27017/skynet
     - REDIS_HOST=redis
     - REDIS_PORT=6379
@@ -57,8 +55,9 @@ iotutil:
   links:
     - redis
     - openresty
-  environment: 
-    - MESHBLU_URL=https://openresty/
+    - meshblu
+  environment:
+    - MESHBLU_URL=http://meshblu/
   entrypoint: ["npm", "start"]
 clitest:
   build: ./iotutil

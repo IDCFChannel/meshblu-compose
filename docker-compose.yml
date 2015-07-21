@@ -1,14 +1,12 @@
 meshblu:
   restart: always
-  build: ./meshblu
-#  image: octoblu/meshblu:0c3e5bd
+  image: idcfchannel/meshblu
   volumes:
     - ./meshblu:/var/www
     - ./docker:/etc/supervisor/conf.d
     - /etc/localtime:/etc/localtime:ro
   environment:
-#    - DEBUG=meshblu:model:device,meshblu:register,meshblu:mqtt,ascoltatori:redis
-    - DEBUG=meshblu:mqtt,ascoltatori:redis,ascoltatori:mqtt,meshblu:sendMessage,meshblu:doMessageForward,meshblu:message-io-socket-handler
+#    - DEBUG=meshblu:mqtt,ascoltatori:redis,ascoltatori:mqtt,meshblu:sendMessage,meshblu:doMessageForward,meshblu:message-io-socket-handler,meshblu:createMessageIOEmitter,meshblu:MessageIOClient,meshblu:protocol:socketLogic
     - MONGODB_URI=mongodb://mongo:27017/skynet
     - REDIS_HOST=redis
     - REDIS_PORT=6379
@@ -48,9 +46,8 @@ rediscli:
   links:
     - redis
 iotutil:
-  build: ./iotutil
+  image: idcfchannel/iotutil
   volumes:
-    - ./iotutil:/app
     - /etc/localtime:/etc/localtime:ro
   links:
     - redis
@@ -59,12 +56,6 @@ iotutil:
   environment:
     - MESHBLU_URL=http://meshblu/
   entrypoint: ["npm", "start"]
-clitest:
-  build: ./iotutil
-  volumes:
-    - ./iotutil:/app
-    - /etc/localtime:/etc/localtime:ro
-  entrypoint: ["npm", "test"]
 freeboard:
   build: ./freeboard
   volumes:

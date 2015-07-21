@@ -12,10 +12,10 @@ $ sudo apt-get update && sudo apt-get install -y git
 
 ```sh
 $ mkdir ~/iot_apps && cd ~/iot_apps
-$ git clone --recursive https://github.com/IDCFChannel/meshblu-compose
+$ git clone https://github.com/IDCFChannel/meshblu-compose
 ```
 
-cloneしたディレクトリに移動してbootstrapのシェルスクリプトを実行します。MeshbluのビルドやMongoDB、Redis、OpenRestyなどのコンテナが自動的に起動します。初回起動時はNode.jsのネイティブのビルドに少し時間がかかる場合があります。
+cloneしたディレクトリに移動してbootstrapのシェルスクリプトを実行します。Meshblu、MongoDB、Redis、OpenRestyなどのコンテナが自動的に起動します。
 
 ```sh
 $ cd meshblu-compose

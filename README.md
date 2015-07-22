@@ -58,7 +58,7 @@ $ curl --insecure https://localhost/status
 {"meshblu":"online"}
 ```
 
-Dockerホストがプライベートネットワーク上にある場合は、外部からパブリックIPアドレスで接続ができるようにファイアウォールとポートフォワードの設定をしておきます。今回はHTTPSとMQTTを使うため`443`と`1883`のポートが使えるようにします。
+Dockerホストがプライベートネットワーク上にある場合は、外部からパブリックIPアドレスで接続ができるようにファイアウォールとポートフォワードの設定をしておきます。今回はHTTPSとMQTTを使うため`443`と`1883`のポートが使えるようにします。IDCFクラウドの仮想マシンとネットワーク設定については[めちゃ楽ガイド](http://www.idcf.jp/pdf/cloud/IDCFCloud_installation_guide.pdf)をご確認ください。
 
 ```sh
 $ curl --insecure https://xxx.xxx.xxx.xxx/status

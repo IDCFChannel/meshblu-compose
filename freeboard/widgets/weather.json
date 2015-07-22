@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "allow_edit": true,
+    "plugins": [],
+    "panes": [
+        {
+            "title": "天気・災害",
+            "width": 1,
+            "row": {
+                "2": 7,
+                "3": 1,
+                "4": 1
+                },
+            "col": {
+                "2": 2,
+                "3": 2,
+                "4": 3
+                },
+            "col_width": 1,
+            "widgets": [
+                {
+                    "type": "text_widget",
+                    "settings": {
+                        "title": "",
+                        "size": "regular",
+                        "value": "return datasources[\"weather\"][\"payload\"].split(',')[0];",
+                        "animate": true
+                        }
+                    },
+                {
+                    "type": "text_widget",
+                    "settings": {
+                        "size": "regular",
+                        "value": "return datasources[\"weather\"][\"payload\"].split(',')[2];",
+                        "animate": true
+                        }
+                    },
+                {
+                    "type": "picture",
+                    "settings": {
+                        "src": "return datasources[\"weather\"][\"payload\"].split(',')[3];",
+                        "refresh": 0
+                        }
+                    }
+                ]
+            }
+        ],
+    "datasources": [
+        {
+            "name": "weather",
+            "type": "meshblu",
+            "settings": {
+                "uuid": "",
+                "token": "",
+                "server": "",
+                "port": 443,
+                "name": "weather"
+                }
+            }
+        ],
+    "columns": 3
+}

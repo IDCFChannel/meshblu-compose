@@ -5,7 +5,7 @@ local function getStatus()
     local client = require "redisClient"
     local red, err = client.Connect(31556926)
 
-    local namespace 
+    local namespace
     if string.sub(args.keyword,1,string.len('action'))=='action' then
         namespace = 'actions:'
     else
@@ -14,8 +14,6 @@ local function getStatus()
 
     local uuid_key = namespace .. args.keyword .. ':' .. args.token
     local res, err = red:hmget(uuid_key,"uuid")
-
-    ngx.log(ngx.ERR, "uuid_key ", uuid_key)
 
     if not res then
         ngx.say("failed to get uuid: ", err)

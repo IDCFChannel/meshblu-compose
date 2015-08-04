@@ -10,6 +10,8 @@ meshblu:
     - MONGODB_URI=mongodb://mongo:27017/skynet
     - REDIS_HOST=redis
     - REDIS_PORT=6379
+    - UUID=idcf
+    - TOKEN=channel
   ports:
     - "1883:1883"
   links:

@@ -64,3 +64,7 @@ freeboard:
     - /etc/localtime:/etc/localtime:ro
   ports:
     - 8088:8080
+bme280:
+  build: ./bme280
+  volumes:
+    - /etc/localtime:/etc/localtime:ro

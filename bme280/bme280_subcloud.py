@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
-from time import sleep
 import json
 import requests
 from config import conf

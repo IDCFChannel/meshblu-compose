@@ -15,20 +15,18 @@ payload = "trigger on"
 
 def on_connect(client, userdata, rc):
     print("Connected with result code {}".format(rc))
-    client.subscribe(conf["TRIGGER_1_UUID"])
+    client.subscribe(conf["ACTION_1_UUID"])
 
 def on_subscribe(client, userdata, mid, granted_qos):
     print("Subscribed mid: {0},  qos: {1}".format(str(mid), str(granted_qos)))
 
 def on_message(client, userdata, msg):
-    print("topic: {}".format(msg.topic))
-    print("msg: {}".format(msg.payload))
-
     payload = json.loads(msg.payload)
     data = payload["data"]
     if data:
         retval = data["payload"]
         if retval:
+            print("-"*10)
             print("temperature: {}".format(retval["temperature"]))
             if float(retval["temperature"]) > conf["THRESHOLD"]:
                 print("threshold over: {0} > {1}".format(float(retval["temperature"]),
@@ -39,7 +37,7 @@ def main():
     # MQTT
     client = mqtt.Client(client_id='',
                          clean_session=True, protocol=mqtt.MQTTv311)
-    client.username_pw_set(conf["TRIGGER_1_UUID"], conf["TRIGGER_1_TOKEN"])
+    client.username_pw_set(conf["ACTION_1_UUID"], conf["ACTION_1_TOKEN"])
     client.on_connect = on_connect
     client.on_subscribe = on_subscribe
     client.on_message = on_message

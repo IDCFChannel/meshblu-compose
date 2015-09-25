@@ -21,7 +21,7 @@ sleep 5s
 docker pull idcfchannel/meshblu
 sleep 5s
 docker pull tenstartups/openresty
-sleep 5s
+sleep 15s
 docker pull redis
 sleep 5s
 docker pull mongo

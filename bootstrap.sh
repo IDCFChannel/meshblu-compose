@@ -18,6 +18,9 @@ cd -
 
 docker pull idcfchannel/iotutil
 docker pull idcfchannel/meshblu
+
+sleep 15s
+
 docker pull tenstartups/openresty
 docker pull redis
 docker pull mongo

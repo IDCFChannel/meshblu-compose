@@ -17,13 +17,15 @@ openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
 cd -
 
 docker pull idcfchannel/iotutil
+sleep 5s
 docker pull idcfchannel/meshblu
-
-sleep 15s
-
+sleep 5s
 docker pull tenstartups/openresty
+sleep 5s
 docker pull redis
+sleep 5s
 docker pull mongo
+sleep 5s
 
 docker-compose up -d openresty
 docker-compose ps

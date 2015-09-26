@@ -72,3 +72,9 @@ sensortag:
   build: ./sensortag
   volumes:
     - /etc/localtime:/etc/localtime:ro
+share:
+  build: ./share
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+  ports:
+    - "3030:3000"

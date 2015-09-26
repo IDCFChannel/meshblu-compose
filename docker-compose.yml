@@ -48,7 +48,8 @@ rediscli:
   links:
     - redis
 iotutil:
-  image: idcfchannel/iotutil
+#  image: idcfchannel/iotutil
+  image: masato/iotutil
   volumes:
     - /etc/localtime:/etc/localtime:ro
   links:
@@ -66,5 +67,9 @@ freeboard:
     - 8088:8080
 bme280:
   build: ./bme280
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+sensortag:
+  build: ./sensortag
   volumes:
     - /etc/localtime:/etc/localtime:ro

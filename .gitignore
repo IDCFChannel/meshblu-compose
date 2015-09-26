@@ -2,6 +2,7 @@ nginx/conf/certs/server.*
 mongo
 redis
 bme280/config.py
+sensortag/config.py
 
 # Logs
 logs

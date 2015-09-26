@@ -48,8 +48,7 @@ rediscli:
   links:
     - redis
 iotutil:
-#  image: idcfchannel/iotutil
-  image: masato/iotutil
+  image: idcfchannel/iotutil
   volumes:
     - /etc/localtime:/etc/localtime:ro
   links:

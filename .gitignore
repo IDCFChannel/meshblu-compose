@@ -4,7 +4,6 @@ redis
 bme280/config.py
 sensortag/config.py
 manage/data/devices.json
-manage/bower_components
 manage/dist
 
 # Logs
@@ -33,4 +32,4 @@ build/Release
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-node_modules
+#node_modules

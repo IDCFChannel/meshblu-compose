@@ -3,7 +3,8 @@ mongo
 redis
 bme280/config.py
 sensortag/config.py
-share/devices.json
+manage/data/devices.json
+manage/bower_components
 
 # Logs
 logs

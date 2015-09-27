@@ -1,0 +1,34 @@
+{
+    "name": "meshblu-manage",
+    "description": "meshblu-manage",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "~4.13.3",
+        "basic-auth": "~1.0.3",
+        "lodash": "~3.10.1"
+    },
+    "devDependencies": {
+        "bower": "~1.5.2",
+        "gulp": "~3.9.0",
+        "gulp-util": "~3.0.6",
+        "gulp-concat": "~2.6.0",
+        "gulp-filter": "~3.0.1",
+        "gulp-uglify": "~1.4.0",
+        "gulp-minify-css": "~1.2.1",
+        "gulp-rename": "~1.2.2",
+        "main-bower-files": "~2.9.0",
+        "gulp-watch": "~4.3.5",
+        "gulp-webserver": "~0.9.1",
+        "del": "~2.0.2",
+        "run-sequence": "~1.1.2"
+    },
+    "scripts": {
+        "start": "node src/server/app.js",
+        "postinstall": "bower install",
+        "clean": "gulp clean",
+        "bower": "gulp bower",
+        "build": "gulp build",
+        "dev-server": "gulp"
+    }
+}

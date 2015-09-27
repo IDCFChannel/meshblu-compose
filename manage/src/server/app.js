@@ -21,7 +21,7 @@ const auth = function (req, res, next) {
   }
 }
 
-const devicesFilePath = path.join(__dirname, 'devices.json');
+const devicesFilePath = path.join(__dirname, '..','..','data','devices.json');
 
 app.get('/devices', auth, function (req, res) {
     var readable = fs.createReadStream(devicesFilePath);

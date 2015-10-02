@@ -75,7 +75,6 @@ sensortag:
 manage:
   build: ./manage
   volumes:
-    - ./manage:/app
     - /etc/localtime:/etc/localtime:ro
   ports:
     - "3030:3000"

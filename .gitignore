@@ -5,6 +5,7 @@ bme280/config.py
 sensortag/config.py
 manage/data/devices.json
 manage/dist
+managedev
 
 # Logs
 logs

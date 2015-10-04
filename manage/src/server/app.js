@@ -24,20 +24,12 @@ const auth = function (req, res, next) {
 }
 
 app.use('/api', router);
+app.use(auth);
+
 app.use(express.static(path.join(__dirname,'..','..','dist')));
 const devicesFilePath = path.join(__dirname, '..','..','data','devices.json');
 
-router.get('/devices', function(req, res) {
-    var readable = fs.createReadStream(devicesFilePath);
-    readable.pipe(res);
-});
-
-app.get('/devices', auth, function (req, res) {
-/*
-    var devices = _.result(_.find(countryCodes,
-                                   'ISO3166-1-Alpha-2', req.params.country),
-                                   'currency_alphabetic_code');
-*/
+router.get('/devices', auth, function(req, res) {
     var readable = fs.createReadStream(devicesFilePath);
     readable.pipe(res);
 });

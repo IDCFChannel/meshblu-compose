@@ -24,9 +24,7 @@
 
     app.onPageInit('devices', function (page) {
         var q = '/api/devices/';
-        app.showIndicator();
         $$.get(q, function(data) {
-            app.hideIndicator();
             data = JSON.parse(data);
             data.forEach(buildDevice);
         });

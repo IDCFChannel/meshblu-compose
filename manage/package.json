@@ -25,7 +25,7 @@
     },
     "scripts": {
         "start": "node src/server/app.js",
-        "postinstall": "bower install",
+        "postinstall": "bower install --allow-root",
         "clean": "gulp clean",
         "bower": "gulp bower",
         "build": "gulp build",

@@ -78,3 +78,10 @@ manage:
     - /etc/localtime:/etc/localtime:ro
   ports:
     - "3030:3000"
+managedev:
+  build: ./managedev
+  volumes:
+    - ./managedev:/app
+    - /etc/localtime:/etc/localtime:ro
+  ports:
+    - "3030:3000"

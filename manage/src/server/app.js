@@ -24,14 +24,26 @@ const auth = function (req, res, next) {
 }
 
 app.use('/api', router);
-app.use(auth);
-
 app.use(express.static(path.join(__dirname,'..','..','dist')));
-const devicesFilePath = path.join(__dirname, '..','..','data','devices.json');
 
-router.get('/devices', auth, function(req, res) {
+const hostFilePath = path.join(__dirname, '..','..','data','host.json');
+const devicesFilePath = path.join(__dirname, '..','..','data','devices.json');
+const devices = require(devicesFilePath);
+
+router.get('/host', function(req, res) {
+    var readable = fs.createReadStream(hostFilePath);
+    readable.pipe(res);
+});
+
+router.get('/devices', function(req, res) {
     var readable = fs.createReadStream(devicesFilePath);
     readable.pipe(res);
+});
+
+router.get('/devices/:keyword', auth, function (req, res) {
+    var device = _.find(devices,
+                        'keyword', req.params.keyword);
+    res.json(device);
 });
 
 const server = app.listen(3000, function () {

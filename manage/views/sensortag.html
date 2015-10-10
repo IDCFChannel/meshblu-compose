@@ -1,0 +1,88 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left">
+      <a href="#" class="back link">
+        <i class="icon icon-back-blue"></i>
+        <span>Back</span>
+       </a>
+    </div>
+    <div class="center sliding">SensorTag</div>
+    <div class="right">
+      <a href="#" class="link icon-only open-panel"><i class="icon icon-bars-blue"></i></a>
+    </div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="sensortag" class="page">
+    <div class="page-content">
+      <div class="content-block-title">温度</div>
+      <form id="my-form" class="list-block">
+        <ul>
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">トリガー</div>
+              <div class="item-input">
+                <select name="triggerno">
+                  <option value="1">trigger-1</option>
+                  <option value="2">trigger-2</option>
+                  <option value="3">trigger-3</option>
+                </select>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">閾値</div>
+                <div class="item-input">
+                  <input type="number" name="tempthreshold" placeholder="30.0" value="30.0">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">基準</div>
+              <div class="item-input">
+                <select name="criteria">
+                  <option value="over">以上</option>
+                  <option value0"fewer">以下</option>
+                </select>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">有効</div>
+                <div id="temp-enable" class="item-input">
+                  <label class="label-switch">
+                    <input type="checkbox">
+                    <div  class="checkbox"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <div class="content-block-title">Sensors</div>
+      <div id="my-form" class="list-block">
+        <ul>
+          <li class="item-divider">Temperature</li>
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title">Object Temperature</div>
+              <div class="item-after" id="objct-temperature"></div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner">
+              <div id="sparkline"></div>
+            </div>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>

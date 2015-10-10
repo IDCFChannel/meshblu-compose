@@ -6,7 +6,7 @@
         <span>Back</span>
        </a>
     </div>
-    <div class="center sliding">デバイス一覧</div>
+    <div class="center sliding">デバイスリスト</div>
     <div class="right">
       <a href="#" class="link icon-only open-panel"><i class="icon icon-bars-blue"></i></a>
     </div>
@@ -16,59 +16,41 @@
   <div data-page="devices" class="page">
     <div class="page-content">
       <div class="list-block">
-        <div class="list-group">
-          <ul>
-            <li class="list-group-title">owner uuid</li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title"></div>
-                <div class="item-after" id="owner-uuid"></div>
+        <ul>
+          <li class="item-divider">owner uuid/token</li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="owner-uuid"></div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="owner-token"></div>
+            </div>
+          </li>
+          <li class="item-divider">trigger-1 uuid/token</li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="trigger-1-uuid"></div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="trigger-1-token"></div>
               </div>
-            </li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title">token</div>
-                <div class="item-after" id="owner-token"></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="list-group">
-          <ul>
-            <li class="list-group-title">trigger-1 uuid</li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title"></div>
-                <div class="item-after" id="trigger-1-uuid"></div>
-              </div>
-            </li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title">token</div>
-                <div class="item-after" id="trigger-1-token"></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="list-group">
-          <ul>
-            <li class="list-group-title">action-1 uuid</li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title"></div>
-                <div class="item-after" id="action-1-uuid"></div>
-              </div>
-            </li>
-            <li class="item-content">
-              <div class="item-inner device-item">
-                <div class="item-title">token</div>
-                <div class="item-after" id="action-1-token"></div>
-              </div>
-            </li>
-          </ul>
-        </div>
+          </li>
+          <li class="item-divider">action-1 uuid/token</li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="action-1-uuid"></div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner device-item">
+              <div class="item-title" id="action-1-token"></div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-FROM node:4.1
+FROM node:4.1.2
 MAINTAINER Masato Shimizu <ma6ato@gmail.com>
 
 RUN mkdir -p /app
@@ -8,6 +8,7 @@ COPY package.json /app/
 COPY bower.json /app/
 COPY gulpfile.js /app/
 
+RUN npm config set strict-ssl false
 RUN npm install
 RUN ./node_modules/bower/bin/bower install --allow-root
 

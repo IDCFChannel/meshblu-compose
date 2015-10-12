@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>IDCFチャンネルサーバー管理</title>
+    <title>IDCF Chanel Management</title>
     <link rel="stylesheet" href="/css/vendor.css">
   </head>
   <body>
@@ -22,7 +22,7 @@
             <div class="left">
               <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
             </div>
-            <div class="center sliding">IDCFチャンネル管理</div>
+            <div class="center sliding">IDCF Channel Management</div>
           </div>
         </div>
         <div class="pages navbar-through toolbar-through">
@@ -76,7 +76,7 @@
   <ul>
     {{#each this}}
     <li class="item-divider">{{category}}</li>
-    {{#each sensors}}
+      {{#each sensors}}
     <li class="item-content">
       <div class="item-inner">
         <div class="item-title">{{titleName}}</div>
@@ -88,7 +88,7 @@
         <div id="{{sparkline}}"></div>
       </div>
     </li>
-    {{/each}}
+      {{/each}}
     {{/each}}
   </ul>
 </script>

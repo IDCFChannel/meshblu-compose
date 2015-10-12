@@ -37,9 +37,20 @@
     });
 
     var conn, trigger, action;
-    var objectPoints = [];
+
+    var objectPoints;
+    if (localStorage['object-temperature'])
+        objectPoints = JSON.parse(localStorage['object-temperature']);
+    else
+        objectPoints = [];
+
     var ambientPoints = [];
-    var pointsMax = 200;
+    if (localStorage['ambient-temperature'])
+        ambientPoints = JSON.parse(localStorage['ambient-temperature']);
+    else
+        ambientPoints = [];
+
+    var pointsMax = 145;
     var tempSuffix = '℃';
 
     function unsubscribe() {
@@ -90,9 +101,13 @@
             type: 'line',
             width: points.length*2
         });
+
+        localStorage[id] = JSON.stringify(points);
     }
 
     function onMessage(message) {
+        if(!message.payload) return;
+
         buildSensorList('object-temperature',
                         message.payload.objctTemperature.toFixed(1),
                         objectPoints, tempSuffix);

@@ -1,9 +1,12 @@
-(function (Framework7, $$) {
+(function (Framework7, $$, T7) {
     var app = new Framework7();
     var $$ = Dom7;
     var mainView = app.addView('.view-main', {
         dynamicNavbar: true
     });
+
+    var sensorsTemplate = $$('#sensors-template').html();
+    var compiledSensorsTemplate = T7.compile(sensorsTemplate);
 
     function buildDevice(device, i) {
         if (device.keyword === 'owner') {
@@ -33,58 +36,21 @@
         });
     });
 
-    function myThingsPubSub(trigger, action, threshold, criteria) {
-        var conn = meshblu.createConnection({
-            'uuid': trigger.uuid,
-            'token': trigger.token,
-            'server': ipaddress,
-            'port': 80
-        });
+    var conn, trigger, action;
+    var objectPoints = [];
+    var ambientPoints = [];
+    var pointsMax = 200;
+    var tempSuffix = '℃';
 
-        conn.on('notReady', function(data){
-            console.log('UUID FAILED AUTHENTICATION!');
-        });
-
-        conn.on('ready', function(data){
-            console.log('READY!!');
-            conn.subscribe({
-                'uuid': action.uuid,
-                'token': action.token
+    function unsubscribe() {
+        if(conn){
+            conn.unsubscribe({
+                'uuid': action.uuid
             }, function (data) {
-                console.log(data);
+                meshbluStatus('UNSUBSCRIBED');
+                console.log('unsubscribe: ', data);
             });
-
-            var points = [];
-            var points_max = 200;
-            conn.on('message', function(message){
-                var temp = message.payload.objctTemperature.toFixed(1);
-                $$('#objct-temperature').text(temp+'℃');
-                $$('#objct-temperature').css('color', '#8e8e93');
-                points.push(temp);
-
-                if (points.length > points_max)
-                    points.splice(0,1);
-
-                jQuery('#sparkline').sparkline(points, {
-                    type: 'line',
-                    width: points.length*2
-                });
-
-                if (meetCriteria(criteria, temp, threshold)) {
-                    $$('#objct-temperature').css('color', 'red');
-
-                    app.addNotification({
-                        title: 'SensorTag閾値監視',
-                        message: '閾値を超えました。: '+temp
-                    });
-
-                    conn.data({
-                        'uuid': trigger.uuid,
-                        'trigger': 'on'
-                    });
-                }
-            });
-        });
+        }
     }
 
     function meetCriteria(criteria, temp, threshold) {
@@ -97,35 +63,147 @@
         }
     }
 
+    function checkCriteria(criteria, value, threshold) {
+        if (meetCriteria(criteria, value, threshold)) {
+            $$('#object-temperature').css('color', 'red');
+            app.addNotification({
+                title: 'SensorTag閾値監視',
+                message: '閾値を超えました。: '+value
+            });
+            conn.data({
+                'uuid': trigger.uuid,
+                'trigger': 'on'
+            });
+        }
+    }
+
+    function buildSensorList(id, value, points, suffix) {
+        $$('#'+id).text(value+suffix);
+        $$('#'+id).css('color', '#8e8e93');
+
+        points.push(value);
+
+        if (points.length > pointsMax)
+            points.splice(0,1);
+
+        jQuery('#'+id+'-sparkline').sparkline(points, {
+            type: 'line',
+            width: points.length*2
+        });
+    }
+
+    function onMessage(message) {
+        buildSensorList('object-temperature',
+                        message.payload.objctTemperature.toFixed(1),
+                        objectPoints, tempSuffix);
+
+        buildSensorList('ambient-temperature',
+                        message.payload.ambientTemperature.toFixed(1),
+                        ambientPoints, tempSuffix);
+
+        var objectTemp = message.payload.objctTemperature.toFixed(1);
+
+        if(thresholdForm().thresholdcheck[0]) {
+            var formData = app.formToJSON('#threshold-form');
+            checkCriteria(formData.criteria,
+                          objectTemp,
+                          parseFloat(formData.tempthreshold));
+        }
+    }
+
+    function meshbluStatus(text) {
+        $$('#meshblu-ready').html(text);
+    }
+
+    function subscribe() {
+        conn = meshblu.createConnection({
+            'uuid': trigger.uuid,
+            'token': trigger.token,
+            'server': ipaddress,
+            'port': 80
+        });
+
+        conn.on('notReady', function(data){
+            meshbluStatus('NOT READY!');
+        });
+
+        conn.on('ready', function(data){
+            meshbluStatus('READY!');
+            conn.subscribe({
+                'uuid': action.uuid,
+                'token': action.token
+            }, function (data) {
+                console.log(data);
+            });
+            conn.on('message', onMessage);
+        });
+    }
+
     function isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
-    app.onPageInit('sensortag', function (page) {
-        $$('#temp-enable').on('click', function(e) {
-            var formData = app.formToJSON('#my-form');
-            var isChecked = $$(this).find('input').prop('checked');
-            if (!isChecked) {
-                if (!isNumber(formData.tempthreshold)) {
-                    e.preventDefault();
-                    app.alert('閾値を数値で入力してください。');
-                    return;
-                }
+    function meshbluForm() {
+        return app.formToJSON('#meshblu-form');
+    }
 
-                var q = '/api/devices/';
-                $$.get(q, function(data) {
-                    data = JSON.parse(data);
-                    var trigger = _.find(data, 'keyword',
-                                         'trigger-'+formData.triggerno);
-                    var action = _.find(data, 'keyword',
-                                          'action-'+formData.triggerno);
-                    myThingsPubSub(trigger, action,
-                                   parseFloat(formData.tempthreshold),
-                                   formData.criteria);
-                });
+    function thresholdForm() {
+        return app.formToJSON('#threshold-form');
+    }
+
+    function startSubscribe() {
+        var formData = meshbluForm();
+        var q = '/api/devices/';
+        $$.get(q, function(data) {
+            data = JSON.parse(data);
+            trigger = _.find(data,'keyword',
+                             'trigger-'+formData.triggerno);
+            action = _.find(data, 'keyword',
+                            'action-'+formData.triggerno);
+            subscribe();
+        });
+    }
+
+    function validateThreshold(e) {
+        if (!isNumber(thresholdForm().tempthreshold)) {
+            e.preventDefault();
+            app.alert('閾値を数値で入力してください。');
+            return;
+        }
+    }
+
+    app.onPageInit('sensortag', function (page) {
+        var data = [{
+            category: 'Temperature',
+            sensors: [
+                {
+                 titleName: 'Object Temperature',
+                 dataId: 'object-temperature',
+                 sparkline: 'object-temperature-sparkline'
+                },{
+                 titleName: 'Ambient Temperature',
+                 dataId: 'ambient-temperature',
+                 sparkline: 'ambient-temperature-sparkline'
+                }
+            ]
+        }];
+
+        $$('#sensors-wrap').html(compiledSensorsTemplate(data))
+
+        if(meshbluForm().meshblucheck[0]) startSubscribe();
+
+        $$('#meshblu-enable').on('click', function(e) {
+            var isChecked = meshbluForm().meshblucheck[0];
+            if (isChecked) {
+                unsubscribe();
+            } else {
+                startSubscribe();
             }
         });
+
+        $$('#tempthreshold').on('blur', validateThreshold);
+        $$('#threshold-enable').on('click', validateThreshold);
     });
 
     window.app = app;
-}(Framework7, Dom7));
+}(Framework7, Dom7, Template7));

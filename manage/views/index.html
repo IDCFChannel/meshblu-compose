@@ -13,29 +13,28 @@
     <div class="panel-overlay"></div>
     <div class="panel panel-left panel-reveal">
       <div class="content-block">
-        <p>左パネル</p>
       </div>
     </div>
     <div class="views">
-      <div class="view view-main">
+      <div class="view view-main navbar-fixed">
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="center sliding">IDCFチャンネルサーバー管理</div>
-            <div class="right">
+            <div class="left">
               <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
             </div>
+            <div class="center sliding">IDCFチャンネル管理</div>
           </div>
         </div>
         <div class="pages navbar-through toolbar-through">
           <div data-page="index" class="page">
             <div class="page-content">
-
               <div class="content-block-title">サーバー情報</div>
               <div class="list-block">
                 <ul>
                   <li class="item-content">
                     <div class="item-inner device-item">
-                      <div class="item-title" id="ipaddress"></div>
+                      <div class="item-title">IPアドレス</div>
+                      <div class="item-after" id="ipaddress"></div>
                     </div>
                   </li>
                 </ul>
@@ -72,6 +71,28 @@
       </div>
     </div>
 </div>
+
+<script id="sensors-template" type="text/template7">
+  <ul>
+    {{#each this}}
+    <li class="item-divider">{{category}}</li>
+    {{#each sensors}}
+    <li class="item-content">
+      <div class="item-inner">
+        <div class="item-title">{{titleName}}</div>
+        <div class="item-after" id="{{dataId}}"></div>
+      </div>
+    </li>
+    <li class="item-content">
+      <div class="item-inner">
+        <div id="{{sparkline}}"></div>
+      </div>
+    </li>
+    {{/each}}
+    {{/each}}
+  </ul>
+</script>
+
 <script type="text/javascript" src="/js/vendor.js"></script>
 <script type="text/javascript" src="/js/bundle.js"></script>
 <script type="text/javascript" src="https://cdn.octoblu.com/js/meshblu/latest/meshblu.bundle.js"></script>

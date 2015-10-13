@@ -39,38 +39,25 @@
                   </li>
                 </ul>
               </div>
-
-              <div class="content-block-title">デバイス</div>
-              <div class="list-block">
-                <ul>
-                  <li>
-                    <a href="/devices.html" id="currency_link" class="item-link item-content">
-                      <div class="item-inner">
-                        <div class="item-title">リスト</div>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="content-block-title">SensorTag</div>
-              <div class="list-block">
-                <ul>
-                  <li>
-                    <a href="/sensortag.html" id="currency_link" class="item-link item-content">
-                      <div class="item-inner">
-                        <div class="item-title">閾値設定</div>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <div id="link-wrap"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 </div>
+
+<script id="link-template" type="text/template7">
+{{#each this}}
+<div class="content-block-title">{{blocktitle}}</div>
+  <div class="list-block">
+    <ul>
+    {{link url title}}
+    </ul>
+  </div>
+</div>
+{{/each}}
+</script>
 
 <script id="sensors-template" type="text/template7">
   <ul>
@@ -98,6 +85,5 @@
 <script type="text/javascript" src="https://cdn.octoblu.com/js/meshblu/latest/meshblu.bundle.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
-
 </body>
 </html>

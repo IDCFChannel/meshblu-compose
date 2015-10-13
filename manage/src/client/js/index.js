@@ -5,6 +5,32 @@
         dynamicNavbar: true
     });
 
+    T7.registerHelper('link', function (url, title, options){
+        var ret = '<li>' +
+                    '<a href="' + url + '" class="item-link item-content">' +
+                      '<div class="item-inner">' +
+                        '<div class="item-title">' + title + '</div>' +
+                      '</div>' +
+                     '</a>' +
+                  '</li>';
+        return ret;
+    });
+
+    var menuLinkTemplate = $$('#link-template').html();
+    var compiledMenuLinkTemplate = T7.compile(menuLinkTemplate);
+
+    var menuData = [{
+        blocktitle: 'デバイス',
+        url: '/devices.html',
+        title: 'リスト'
+    },{
+        blocktitle: 'SensorTag',
+        url: '/sensortag.html',
+        title: '閾値設定'
+    }];
+
+    $$('#link-wrap').html(compiledMenuLinkTemplate(menuData))
+
     var sensorsTemplate = $$('#sensors-template').html();
     var compiledSensorsTemplate = T7.compile(sensorsTemplate);
 

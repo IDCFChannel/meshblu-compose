@@ -23,8 +23,8 @@ const auth = function (req, res, next) {
   }
 }
 
+app.use(auth, express.static(path.join(__dirname,'..','..','dist')));
 app.use('/api', router);
-app.use(express.static(path.join(__dirname,'..','..','dist')));
 
 const hostFilePath = path.join(__dirname, '..','..','data','host.json');
 const devicesFilePath = path.join(__dirname, '..','..','data','devices.json');
@@ -40,7 +40,7 @@ router.get('/devices', function(req, res) {
     readable.pipe(res);
 });
 
-router.get('/devices/:keyword', auth, function (req, res) {
+router.get('/devices/:keyword', function (req, res) {
     var device = _.find(devices,
                         'keyword', req.params.keyword);
     res.json(device);

@@ -1,6 +1,5 @@
-(function (Framework7, $$, T7) {
+(function (Framework7, T7, $$, $) {
     var app = new Framework7();
-    var $$ = Dom7;
     var mainView = app.addView('.view-main', {
         dynamicNavbar: true
     });
@@ -47,8 +46,7 @@
     var ipaddress;
     app.onPageInit('index', function (page) {
         var q = '/api/host/';
-        $$.get(q, function(data) {
-            data = JSON.parse(data);
+        $.getJSON(q, function(data) {
             ipaddress = data.ipaddress;
             $$('#ipaddress').text(ipaddress);
         });
@@ -56,8 +54,7 @@
 
     app.onPageInit('devices', function (page) {
         var q = '/api/devices/';
-        $$.get(q, function(data) {
-            data = JSON.parse(data);
+        $.getJSON(q, function(data) {
             data.forEach(buildDevice);
         });
     });
@@ -123,7 +120,7 @@
         if (points.length > pointsMax)
             points.splice(0,1);
 
-        jQuery('#'+id+'-sparkline').sparkline(points, {
+        $('#'+id+'-sparkline').sparkline(points, {
             type: 'line',
             width: points.length*2
         });
@@ -195,8 +192,7 @@
     function startSubscribe() {
         var formData = meshbluForm();
         var q = '/api/devices/';
-        $$.get(q, function(data) {
-            data = JSON.parse(data);
+        $.getJSON(q, function(data) {
             trigger = _.find(data,'keyword',
                              'trigger-'+formData.triggerno);
             action = _.find(data, 'keyword',
@@ -247,4 +243,4 @@
     });
 
     window.app = app;
-}(Framework7, Dom7, Template7));
+}(Framework7, Template7, Dom7, jQuery));

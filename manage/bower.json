@@ -4,7 +4,8 @@
     "private": true,
     "dependencies": {
         "framework7": "~1.2.0",
-        "lodash": "~3.10.1"
+        "lodash": "~3.10.1",
+        "jQuery": "~2.1.4"
     },
     "overrides": {
         "framework7": {

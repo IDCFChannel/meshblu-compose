@@ -243,4 +243,4 @@
     });
 
     window.app = app;
-}(Framework7, Template7, Dom7, jQuery);
+}(Framework7, Template7, Dom7, jQuery));

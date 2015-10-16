@@ -5,6 +5,7 @@
     "private": true,
     "dependencies": {
         "express": "~4.13.3",
+        "cors": "~2.7.1",
         "basic-auth": "~1.0.3",
         "lodash": "~3.10.1"
     },

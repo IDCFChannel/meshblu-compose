@@ -21,11 +21,11 @@ sleep 5s
 docker pull idcfchannel/meshblu
 sleep 5s
 docker pull tenstartups/openresty
-sleep 15s
+sleep 10s
 docker pull redis
-sleep 5s
+sleep 10s
 docker pull mongo
-sleep 5s
+sleep 10s
 
 docker-compose up -d openresty
 docker-compose ps

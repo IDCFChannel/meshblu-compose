@@ -1,4 +1,4 @@
-FROM node:4.1.2
+FROM node:4.2
 MAINTAINER Masato Shimizu <ma6ato@gmail.com>
 
 RUN mkdir -p /app

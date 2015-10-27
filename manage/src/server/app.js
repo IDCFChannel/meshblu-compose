@@ -2,6 +2,7 @@
 
 const basicAuth = require('basic-auth');
 const express = require('express');
+const favicon = require('serve-favicon');
 const cors = require('cors');
 const app = express();
 const path = require('path');
@@ -25,6 +26,7 @@ const auth = function (req, res, next) {
 }
 
 app.use(cors());
+app.use(favicon(__dirname + '/../../images/favicon.ico'));
 app.use(auth, express.static(path.join(__dirname,'..','..','dist')));
 app.use(express.static(path.join(__dirname,'..','..','dist')));
 app.use('/api', router);

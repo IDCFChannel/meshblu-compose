@@ -76,5 +76,6 @@ manage:
   image: idcfchannel/meshblu-manage
   volumes:
     - /etc/localtime:/etc/localtime:ro
+    - $PWD/manage/data:/data
   ports:
     - "3030:3000"

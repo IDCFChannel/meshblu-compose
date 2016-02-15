@@ -3,9 +3,6 @@ mongo
 redis
 bme280/config.py
 sensortag/config.py
-manage/data/*.json
-manage/dist
-managedev
 
 # Logs
 logs

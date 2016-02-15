@@ -73,7 +73,7 @@ sensortag:
   volumes:
     - /etc/localtime:/etc/localtime:ro
 manage:
-  build: ./manage
+  image: idcfchannel/meshblu-manage
   volumes:
     - /etc/localtime:/etc/localtime:ro
   ports:
